@@ -40,6 +40,7 @@ var InterfaceComponent = React.createClass({
         var newClients = this.state.clients;
         DataCollector.startWatch(name);
         newClients.push(name);
+        console.log('addClient');
         this.setState({clients: newClients});
         localStorage.setItem(LOCAL_CLIENT_NAME, newClients);
     },
@@ -53,7 +54,7 @@ var InterfaceComponent = React.createClass({
             nav = 1;
             content = (
                 <Well>
-                    <StatsList clients={this.state.clients || []} />
+                    <StatsList clients={this.state.clients || []} getData={DataCollector.getData} />
                 </Well>
             );
         }
