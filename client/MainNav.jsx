@@ -13,9 +13,8 @@ var MainNav = React.createClass({
         return (
             <Navbar>
                 <Nav activeKey={this.props.current}>
-                    <NavItem key={1} href={"#home"}>Home</NavItem>
-                    <NavItem key={2} href={"#notes"}>Notes</NavItem>
-                    <NavItem key={3} href={"#todos"}>Todos</NavItem>
+                    <NavItem key={1} href={"#home"}>Stats</NavItem>
+                    <NavItem key={2} href={"#urls"}>Urls</NavItem>
                 </Nav>
             </Navbar>
         );

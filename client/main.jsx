@@ -7,16 +7,30 @@ Backbone.$ = $;
 var Well = require('react-bootstrap').Well;
 
 var MainNav = require('./MainNav');
-var CommentList = require('./CommentList')
+var ClientList = require('./ClientList');
+var StatsList = require('./StatsList');
+var DataCollector = require('./DataCollector');
 
+var LOCAL_CLIENT_NAME = 'asdfjklCleints';
 
 var InterfaceComponent = React.createClass({
+    setIntialState: function() {
+        return {
+            clients: localStorage.getItem(LOCAL_CLIENT_NAME) || []
+        }
+    },
     componentWillMount : function() {
         this.callback = (function() {
             this.forceUpdate();
         }).bind(this);
 
         this.props.router.on("route", this.callback);
+    },
+    addClient: function(name) {
+        var newClients = this.state.clients;
+        newClients.push(name);
+        this.setState({clients: newClients});
+        localStorage.setItem(LOCAL_CLIENT_NAME, newClients);
     },
     componentWillUnmount : function() {
         this.props.router.off("route", this.callback);
@@ -28,23 +42,15 @@ var InterfaceComponent = React.createClass({
             nav = 1;
             content = (
                 <Well>
-                    <p>Welcome!</p>
+                    <StatsList />
                 </Well>
             );
         }
-        if (this.props.router.current[0] == 'notes') {
+        if (this.props.router.current[0] == 'urls') {
             nav = 2;
             content = (
                 <Well>
-                    <CommentList />
-                </Well>
-            );
-        }
-        if (this.props.router.current[0] == 'todos') {
-            nav = 3;
-            content = (
-                <Well>
-                    <p>TODO: replace with todos react tutorial</p>
+                    <ClientList clients={this.state.clients} addClient={this.addClient} />
                 </Well>
             );
         }
