@@ -6,7 +6,7 @@ var request = require('browser-request');
 var watchAndSave = function(name) {
 	var options = {
 		method: 'GET',
-		url: name,
+		uri: name,
 		json: true
 	};
 	request(options, function(er, response, body) {
@@ -21,11 +21,12 @@ var watchAndSave = function(name) {
 
 
 var startWatch = function(name) {
+    console.log('starting watch');
 	if (currentlyWatched[name]) {
 		return;
 	}
 	currentlyWatched[name] = true;
 	watchAndSave(name);
-}
+};
 
 module.exports = startWatch;

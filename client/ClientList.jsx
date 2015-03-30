@@ -14,7 +14,7 @@ module.exports = React.createClass({
         clients: React.PropTypes.array.isRequired
     },
     addClient: function() {
-        var url = this.refs.url.getValue().trim()
+        var url = this.refs.url.getValue().trim();
         this.props.addClient(url);
         return false;
     },
