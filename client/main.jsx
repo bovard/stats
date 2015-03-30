@@ -53,7 +53,7 @@ var InterfaceComponent = React.createClass({
             nav = 1;
             content = (
                 <Well>
-                    <StatsList clients={this.state.clients || []} />
+                    <StatsList clients={this.state.clients || []} getData={DataCollector.getData} />
                 </Well>
             );
         }

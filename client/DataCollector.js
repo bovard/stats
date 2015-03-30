@@ -3,6 +3,8 @@ var MAX_EVENTS = 100;
 var currentlyWatched = {};
 var request = require('browser-request');
 
+var data = {};
+
 var watchAndSave = function(name) {
 	var options = {
 		method: 'GET',
@@ -10,20 +12,27 @@ var watchAndSave = function(name) {
 		json: true
 	};
 	request(options, function(er, response, body) {
-		if (er || !response.ok) {
+		if (!response.ok) {
             console.log('there was an error!');
 			console.log(er);
             console.log(response);
             console.log(body);
 			return;
 		}
-        console.log(response.ok)
-        console.log("response")
-        console.log(response);
-        console.log("body")
-		console.log(body);
+        data[name].push(body);
+        while(data[name].length > MAX_EVENTS) {
+            data[name].shift();
+        }
 	});
 	setTimeout(watchAndSave, 30000, name);
+};
+
+var getData = function(name, all) {
+    if (all) {
+        return data[name];
+    } else {
+        return data[name][data[name].length - 1]
+    }
 };
 
 
@@ -33,10 +42,11 @@ var startWatch = function(name) {
 		return;
 	}
 	currentlyWatched[name] = true;
+    data[name] = [];
 	watchAndSave(name);
 };
 
 module.exports = {
     "startWatch": startWatch,
-    "getData": function() {}
+    "getData": getData
 };
