@@ -14,10 +14,17 @@ var DataCollector = require('./DataCollector');
 var LOCAL_CLIENT_NAME = 'asdfjklCleints';
 
 var InterfaceComponent = React.createClass({
-    getIntialState: function() {
-        return {
-            clients: localStorage.getItem(LOCAL_CLIENT_NAME) || []
+    getInitialState: function() {
+        var localClients = localStorage.getItem(LOCAL_CLIENT_NAME);
+        try {
+            localClients = localClients.split(',');
+        } catch(err) {
+            console.log(err);
+            localClients = [];
         }
+        return {
+            clients: localClients
+        };
     },
     componentWillMount : function() {
         this.callback = (function() {
@@ -27,10 +34,14 @@ var InterfaceComponent = React.createClass({
         this.props.router.on("route", this.callback);
     },
     addClient: function(name) {
+        console.log(this);
+        console.log(this.state);
         var newClients = this.state.clients;
+        console.log("current clients ", newClients);
         newClients.push(name);
         this.setState({clients: newClients});
         localStorage.setItem(LOCAL_CLIENT_NAME, newClients);
+        console.log("new clients ", newClients);
     },
     componentWillUnmount : function() {
         this.props.router.off("route", this.callback);
@@ -42,7 +53,7 @@ var InterfaceComponent = React.createClass({
             nav = 1;
             content = (
                 <Well>
-                    <StatsList clients={this.state.clients} />
+                    <StatsList clients={this.state.clients || []} />
                 </Well>
             );
         }
@@ -50,7 +61,7 @@ var InterfaceComponent = React.createClass({
             nav = 2;
             content = (
                 <Well>
-                    <ClientList clients={this.state.clients} addClient={this.addClient} />
+                    <ClientList clients={this.state.clients || []} addClient={this.addClient} />
                 </Well>
             );
         }

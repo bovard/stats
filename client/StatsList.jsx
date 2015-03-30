@@ -1,22 +1,17 @@
 /** @jsx React.DOM */
 var React = require('react');
 
-var Well = require('react-bootstrap').Well
+var Table = require('react-bootstrap').Table;
 
 
 module.exports = React.createClass({
     propTypes: {
-        addClient: React.PropTypes.func.isRequired,
         clients: React.PropTypes.array.isRequired
     },
-    addClient: function() {
-
-           
-        return false;
-    },
     render: function() {
-
-
-
+        return (
+            <Table>
+            </Table>
+        );
     }
-}) 
+});

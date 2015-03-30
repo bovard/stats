@@ -21,11 +21,12 @@ var watchAndSave = function(name) {
 
 
 var startWatch = function(name) {
+    console.log('starting watch');
 	if (currentlyWatched[name]) {
 		return;
 	}
 	currentlyWatched[name] = true;
 	watchAndSave(name);
-}
+};
 
 module.exports = startWatch;
