@@ -11,9 +11,16 @@ var watchAndSave = function(name) {
 	};
 	request(options, function(er, response, body) {
 		if (er || !response.ok) {
+            console.log('there was an error!');
 			console.log(er);
+            console.log(response);
+            console.log(body);
 			return;
 		}
+        console.log(response.ok)
+        console.log("response")
+        console.log(response);
+        console.log("body")
 		console.log(body);
 	});
 	setTimeout(watchAndSave, 30000, name);
@@ -29,4 +36,7 @@ var startWatch = function(name) {
 	watchAndSave(name);
 };
 
-module.exports = startWatch;
+module.exports = {
+    "startWatch": startWatch,
+    "getData": function() {}
+};

@@ -23,7 +23,7 @@ module.exports = React.createClass({
         if (this.props.clients.length > 0) {
             var clients = this.props.clients.map(function(name) {
                 return (
-                    <tr id={name}>
+                    <tr key={name}>
                         <td>{name}</td>
                     </tr>
                 );
