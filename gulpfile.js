@@ -21,7 +21,7 @@ gulp.task('browserify', function () {
     .pipe(browserified)
     .pipe(uglify())
     .pipe(rename('main.js'))
-    .pipe(gulp.dest('server/build/'));
+    .pipe(gulp.dest('build/'));
 });
 
 gulp.task('release', function () {
@@ -39,7 +39,7 @@ gulp.task('release', function () {
     .pipe(browserified)
     .pipe(uglify())
     .pipe(rename('main.js'))
-    .pipe(gulp.dest('server/build/'));
+    .pipe(gulp.dest('build/'));
 });
 
 gulp.task('watch', function() {
