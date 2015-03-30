@@ -19,7 +19,7 @@ var InterfaceComponent = React.createClass({
         try {
             localClients = localClients.split(',');
             for (var i = 0; i < localClients.length; i++) {
-                DataCollector(localClients[i]);
+                DataCollector.startWatch(localClients[i]);
             }
         } catch(err) {
             console.log(err);
@@ -38,7 +38,7 @@ var InterfaceComponent = React.createClass({
     },
     addClient: function(name) {
         var newClients = this.state.clients;
-        DataCollector(name);
+        DataCollector.startWatch(name);
         newClients.push(name);
         this.setState({clients: newClients});
         localStorage.setItem(LOCAL_CLIENT_NAME, newClients);
