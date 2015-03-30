@@ -16,7 +16,7 @@ var watchAndSave = function(name) {
 		}
 		console.log(body);
 	});
-	setTimeout(watchAndSave, 5000, name);
+	setTimeout(watchAndSave, 30000, name);
 };
 
 
