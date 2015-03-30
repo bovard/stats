@@ -1,6 +1,6 @@
 
 var MAX_EVENTS = 100;
-var currentlyWatched = {}
+var currentlyWatched = {};
 var request = require('browser-request');
 
 var watchAndSave = function(name) {
@@ -8,7 +8,7 @@ var watchAndSave = function(name) {
 		method: 'GET',
 		url: name,
 		json: true
-	}
+	};
 	request(options, function(er, response, body) {
 		if (er || !response.ok) {
 			console.log(er);
@@ -17,7 +17,7 @@ var watchAndSave = function(name) {
 		console.log(body);
 	});
 	setTimeout(watchAndSave, 5000, name);
-}
+};
 
 
 var startWatch = function(name) {

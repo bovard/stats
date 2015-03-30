@@ -19,12 +19,14 @@ module.exports = React.createClass({
         return false;
     },
     render: function() {
-        var table = <div />
+        var table = <div />;
         if (this.props.clients.length > 0) {
             var clients = this.props.clients.map(function(name) {
-                <tr id={name}>
-                    <td>{name}</td>
-                </tr>
+                return (
+                    <tr id={name}>
+                        <td>{name}</td>
+                    </tr>
+                );
             });
             table = (
                 <Table responsive>
@@ -37,23 +39,22 @@ module.exports = React.createClass({
                 </Table>
             )
         }
-        <div>
-            {table}
-            <form className="form-horizontal" onSubmit={this.addClient}>
-                <Input
-                    type="text"
-                    label="Url"
-                    labelClassName="col-xs-2"
-                    wrapperClassName="col-xs-4"
-                    ref="url" />
-                <Input
-                    type="submit"
-                    wrapperClassName="col-xs-offset-2 col-xs-2" />
-            </form>
-        </div>
+        return (
+            <div>
+                {table}
+                <form className="form-horizontal" onSubmit={this.addClient}>
+                    <Input
+                        type="text"
+                        label="Url"
+                        labelClassName="col-xs-2"
+                        wrapperClassName="col-xs-4"
+                        ref="url" />
+                    <Input
+                        type="submit"
+                        wrapperClassName="col-xs-offset-2 col-xs-2" />
+                </form>
+            </div>
+        )
     }
-}) 
+});
 
-
-
-module.exports = CommentBox;

@@ -14,7 +14,7 @@ var DataCollector = require('./DataCollector');
 var LOCAL_CLIENT_NAME = 'asdfjklCleints';
 
 var InterfaceComponent = React.createClass({
-    setIntialState: function() {
+    getIntialState: function() {
         return {
             clients: localStorage.getItem(LOCAL_CLIENT_NAME) || []
         }
@@ -42,7 +42,7 @@ var InterfaceComponent = React.createClass({
             nav = 1;
             content = (
                 <Well>
-                    <StatsList />
+                    <StatsList clients={this.state.clients} />
                 </Well>
             );
         }
