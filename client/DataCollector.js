@@ -6,7 +6,7 @@ var request = require('browser-request');
 var watchAndSave = function(name) {
 	var options = {
 		method: 'GET',
-		url: name,
+		uri: name,
 		json: true
 	};
 	request(options, function(er, response, body) {
