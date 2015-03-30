@@ -40,6 +40,7 @@ var InterfaceComponent = React.createClass({
         var newClients = this.state.clients;
         DataCollector.startWatch(name);
         newClients.push(name);
+        console.log('addClient');
         this.setState({clients: newClients});
         localStorage.setItem(LOCAL_CLIENT_NAME, newClients);
     },

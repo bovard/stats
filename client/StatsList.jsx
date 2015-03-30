@@ -10,33 +10,39 @@ module.exports = React.createClass({
         getData: React.PropTypes.func.isRequired
     },
     getInitialState: function() {
-        return {data: []}
-    },
-    componentWillMount: function() {
-        var checkUrlTimeout = setTimeout(this.checkData, 30000);
-        this.setState({timeout: checkUrlTimeout});
+        return {
+            data: [],
+            checkUrlTimeout: setInterval(this.checkData, 30000)
+        }
     },
     componentWillUnmount: function() {
+        console.log('unmount');
         clearTimeout(this.state.timeout);
-        this.setState({timeout: null})
     },
     checkData: function() {
-        var data = this.props.client.map(this.props.getData);
-        this.setState({data: data});
+        console.log('checkData');
+        var data = this.props.clients.map(this.props.getData);
+        this.setState({"data": data});
     },
     render: function() {
-        var clients = this.data.map(function(entry) {
-            return (
-                <tr key={entry['appspot']}>
-                    <td>{entry['appspot']}</td>
-                    <td>{entry['appspot_version']}</td>
-                    <td>{entry['bolt_client_version']}</td>
-                    <td>{entry['server_info_count']}</td>
-                    <td>{entry['gce_instance_count']}</td>
-                    <td>{entry['free_workers']}</td>
-                    <td>{entry['max_workers']}</td>
-                </tr>
-            )
+        var clients = this.state.data.map(function(entry) {
+            console.log('entry', entry);
+            if (entry) {
+                return (
+                    <tr key={entry['appspot']}>
+                        <td>{entry['appspot']}</td>
+                        <td>{entry['appspot_version']}</td>
+                        <td>{entry['bolt_client_version']}</td>
+                        <td>{entry['server_info_count']}</td>
+                        <td>{entry['gce_instance_count']}</td>
+                        <td>{entry['free_workers']}</td>
+                        <td>{entry['max_workers']}</td>
+                    </tr>
+                )
+            }
+            else {
+                return <tr></tr>
+            }
         });
 
         return (

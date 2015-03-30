@@ -12,19 +12,15 @@ var watchAndSave = function(name) {
 		json: true
 	};
 	request(options, function(er, response, body) {
-		if (!response.ok) {
-            console.log('there was an error!');
-			console.log(er);
-            console.log(response);
-            console.log(body);
-			return;
-		}
-        data[name].push(body);
-        while(data[name].length > MAX_EVENTS) {
-            data[name].shift();
+        console.log(body['appspot']);
+        if (body['appspot']) {
+            data[name].push(body);
+            while(data[name].length > MAX_EVENTS) {
+                data[name].shift();
+            }
         }
 	});
-	setTimeout(watchAndSave, 30000, name);
+	setInterval(watchAndSave, 30000, name);
 };
 
 var getData = function(name, all) {
