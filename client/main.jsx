@@ -18,11 +18,13 @@ var InterfaceComponent = React.createClass({
         var localClients = localStorage.getItem(LOCAL_CLIENT_NAME);
         try {
             localClients = localClients.split(',');
+            localClients = localClients.filter(function(item) {
+                return !!item;
+            });
             for (var i = 0; i < localClients.length; i++) {
                 DataCollector.startWatch(localClients[i]);
             }
         } catch(err) {
-            console.log(err);
             localClients = [];
         }
         return {
@@ -40,7 +42,6 @@ var InterfaceComponent = React.createClass({
         var newClients = this.state.clients;
         DataCollector.startWatch(name);
         newClients.push(name);
-        console.log('addClient');
         this.setState({clients: newClients});
         localStorage.setItem(LOCAL_CLIENT_NAME, newClients);
     },
