@@ -1,9 +1,7 @@
 
-var MAX_EVENTS = 100;
 var currentlyWatched = {};
 var request = require('browser-request');
 
-var data = {};
 
 var watchAndSave = function(name) {
 	var options = {
@@ -12,34 +10,28 @@ var watchAndSave = function(name) {
 		json: true
 	};
 	request(options, function(er, response, body) {
-        console.log(body['appspot']);
-        if (body['appspot']) {
-            data[name].push(body);
-            while(data[name].length > MAX_EVENTS) {
-                data[name].shift();
-            }
+        if (body && body['appspot']) {
+            localStorage[btoa(name)] = JSON.stringify(body);
         }
 	});
-	setInterval(watchAndSave, 30000, name);
 };
 
-var getData = function(name, all) {
-    if (all) {
-        return data[name];
-    } else {
-        return data[name][data[name].length - 1]
+var getData = function(name) {
+    var data = localStorage[btoa(name)];
+    if (data) {
+        data = JSON.parse(data);
     }
+    return data;
 };
 
 
 var startWatch = function(name) {
-    console.log('starting watch');
 	if (currentlyWatched[name]) {
 		return;
 	}
 	currentlyWatched[name] = true;
-    data[name] = [];
 	watchAndSave(name);
+    setInterval(watchAndSave, 30000, name);
 };
 
 module.exports = {
