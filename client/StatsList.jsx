@@ -22,6 +22,7 @@ module.exports = React.createClass({
         getData: React.PropTypes.func.isRequired
     },
     getInitialState: function() {
+        setTimeout(this.checkData, 500);
         return {
             data: [],
             checkUrlTimeout: setInterval(this.checkData, 10000)
