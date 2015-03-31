@@ -31,7 +31,7 @@ var startWatch = function(name) {
 	}
 	currentlyWatched[name] = true;
 	watchAndSave(name);
-    setInterval(watchAndSave, 30000, name);
+    setInterval(watchAndSave, 300000, name);
 };
 
 module.exports = {
