@@ -11,6 +11,7 @@ var watchAndSave = function(name) {
 	};
 	request(options, function(er, response, body) {
         if (body && body['appspot']) {
+            body['last_updated'] = Date.now();
             localStorage[btoa(name)] = JSON.stringify(body);
         }
 	});
