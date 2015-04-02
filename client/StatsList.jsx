@@ -2,6 +2,7 @@
 var React = require('react');
 
 var Table = require('react-bootstrap').Table;
+var moment = require('moment');
 
 
 function createRGB(val) {
@@ -53,6 +54,7 @@ module.exports = React.createClass({
             var gce_instance_count = entry['gce_instance_count'];
             var free_workers = entry['free_workers'];
             var max_workers = entry['max_workers'];
+            var last_updated = entry['last_updated'] && moment.utc(entry['last_updated']).fromNow();
 
             var server_info_error = 0;
             var gce_instance_error = 0;
@@ -98,6 +100,7 @@ module.exports = React.createClass({
                     <td style={{"background-color":gce_instance_bg}}>{gce_instance_count}</td>
                     <td style={{"background-color":free_workers_bg}}>{free_workers}</td>
                     <td style={{"background-color":max_workers_bg}}>{max_workers}</td>
+                    <td>{last_updated}</td>
                 </tr>
             )
         });
@@ -112,6 +115,7 @@ module.exports = React.createClass({
                     <th># GCE Instances</th>
                     <th>Free Instances</th>
                     <th>Max Instances</th>
+                    <th>Last Updated</th>
                 </thead>
                 <tbody>
                     {clients}
